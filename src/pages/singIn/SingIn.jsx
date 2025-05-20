@@ -4,9 +4,14 @@ import React, { useContext } from 'react';
 import AuthContext from '../../context/AuthContext/AuthContext';
 import { FcGoogle } from 'react-icons/fc';
 import SocialLogin from '../../sheared/SocialLogin';
+import { useLocation, useNavigate } from 'react-router-dom';
 
 const SingIn = () => {
     const {signInUser} = useContext(AuthContext)
+    const location = useLocation();
+    const navigate = useNavigate();
+    console.log('in Sign in Page', location);
+    const from = location.state || '/';
 
 
     const handleSingIn = e =>{
@@ -20,7 +25,9 @@ const SingIn = () => {
         signInUser(email,password)
         .then(result =>{
             const user = result.user;
+             navigate(from)
             console.log(user)
+           
         })
         .catch(error =>{
             console.log(error)
